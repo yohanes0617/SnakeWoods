@@ -9,12 +9,13 @@ public class Player_move : MonoBehaviour {
     //public float speed = 4f; //歩くスピード
     //private Rigidbody2D rigidbody2D;
     private Animator anim;
-
+    public int i = 114;
     void Start()
     {
     //    //各コンポーネントをキャッシュしておく
         anim = GetComponent<Animator>();
         renderer = GetComponent<Renderer>();
+     
         //    rigidbody2D = GetComponent<Rigidbody2D>();
     }
 
@@ -76,11 +77,17 @@ public class Player_move : MonoBehaviour {
             Position.x -= SPEED.x;
             anim.SetBool("left", true);
 
-            if(Input.GetKey("z"))
+            if(Input.GetKey("z")&&i>0)
             {
                 anim.SetBool("roring", true);
                 Position.x -= roringspeed.x;
                 gameObject.layer = LayerMask.NameToLayer("Player_roring");
+                i--;
+                if (i == 0)
+                {
+                    anim.SetBool("roring", false);
+                    gameObject.layer = LayerMask.NameToLayer("Player");
+                }
             }
         }
         else if (Input.GetKey("right"))
