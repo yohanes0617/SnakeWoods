@@ -77,7 +77,10 @@ public class Player_move : MonoBehaviour {
             Position.x -= SPEED.x;
             anim.SetBool("left", true);
 
-            if(Input.GetKey("z")&&i>0)
+            anim.SetBool("up", false);
+            anim.SetBool("down", false);
+            anim.SetBool("right", false);
+            if (Input.GetKey("z")&&i>0)
             {
                 anim.SetBool("roring", true);
                 Position.x -= roringspeed.x;
@@ -94,24 +97,75 @@ public class Player_move : MonoBehaviour {
         { 
             Position.x += SPEED.x;
             anim.SetBool("right", true);
+            anim.SetBool("up", false);
+            anim.SetBool("left", false);
+            anim.SetBool("down", false);
+            anim.SetBool("roring", false);
+            if (Input.GetKey("z") && i > 0)
+            {
+                anim.SetBool("leftroring", true);
+                Position.x += roringspeed.x;
+                gameObject.layer = LayerMask.NameToLayer("Player_roring");
+                i--;
+                if (i == 0)
+                {
+                    anim.SetBool("leftroring", false);
+                    gameObject.layer = LayerMask.NameToLayer("Player");
+                }
+            }
         }
         else if (Input.GetKey("up"))
         { 
             Position.y += SPEED.y;
             anim.SetBool("up", true);
+            anim.SetBool("left", false);
+            anim.SetBool("down", false);
+            anim.SetBool("right", false);
+            
+            if (Input.GetKey("z") && i > 0)
+            {
+                anim.SetBool("uproring", true);
+                Position.y += roringspeed.y;
+                gameObject.layer = LayerMask.NameToLayer("Player_roring");
+                i--;
+                if (i == 0)
+                {
+                    anim.SetBool("uproring", false);
+                    gameObject.layer = LayerMask.NameToLayer("Player");
+                }
+            }
         }
         else if (Input.GetKey("down"))
         { 
             Position.y -= SPEED.y;
             anim.SetBool("down", true);
+            anim.SetBool("up", false);
+            anim.SetBool("left", false);
+            anim.SetBool("right", false);
+            anim.SetBool("roring", false);
+            if (Input.GetKey("z") && i > 0)
+            {
+                anim.SetBool("downroring", true);
+                Position.y -= roringspeed.y;
+                gameObject.layer = LayerMask.NameToLayer("Player_roring");
+                i--;
+                if (i == 0)
+                {
+                    anim.SetBool("downroring", false);
+                    gameObject.layer = LayerMask.NameToLayer("Player");
+                }
+            }
         }
         else
         {
+            anim.SetBool("roring", false);
+            anim.SetBool("downroring", false);
+            anim.SetBool("leftroring", false);
+            anim.SetBool("uproring", false);
             anim.SetBool("up", false);
             anim.SetBool("left", false);
             anim.SetBool("down", false);
             anim.SetBool("right", false);
-            anim.SetBool("roring", false);
             gameObject.layer = LayerMask.NameToLayer("Player");
         }
         // 現在の位置に加算減算を行ったPositionを代入する
